@@ -1,0 +1,30 @@
+html body{
+    margin:0; padding:0;
+}
+
+#mainmenu{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding:1rem 3rem;
+    background-color: rgb(222, 224, 221);
+    margin:0;
+    box-sizing: border-box;
+
+    a{
+        font-size: 1.3rem;
+        color:rgb(113, 131, 109);
+        transition: all 0.5s;
+        text-decoration: none;
+
+        &:hover{
+            color:rgb(72, 80, 71);
+            transition: all 0.5s;
+        }
+    }
+
+    #mainMenu-Webshop{
+        font-size: 1.8rem;
+    }
+}

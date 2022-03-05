@@ -1,0 +1,21 @@
+<main>
+    <section id="shoppingCart">
+        <ul>
+            <h2>Your Order</h2>
+            <li *ngFor="let p of productsToRender; let i = index">
+                <img [src]="p.imageUrl" class="cartImg">
+                <h3>{{ p.name }}</h3>
+                <p>{{ p.price | currency:'SEK' }}</p>
+                <button (click)="removeFromCart(i)" [id]="i">Delete</button>
+            </li>
+        </ul>
+    </section>
+
+    <section id="totalPriceContainer">
+        <p>Total: {{ totalPrice | currency: 'SEK' }}</p>
+    </section>
+
+    <section id="shoppingCartForm">
+        <app-user-form></app-user-form>
+    </section>
+</main>
