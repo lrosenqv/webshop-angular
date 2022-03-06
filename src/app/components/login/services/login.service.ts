@@ -26,7 +26,8 @@ private existingUsers: IUser[] = [];
       console.log("yay");
 
       if(personExist.isAdmin === true){
-        return console.log("is also admin");
+        console.log("is also admin")
+        return true;
       }
       return console.log("not admin");
     }

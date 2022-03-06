@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/components/login/services/login.service';
+import { Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/components/login/services/login.service';
 export class AdminComponent implements OnInit {
   isAdmin: boolean = false;
 
-  constructor(private service: LoginService) { }
+  constructor() {}
 
   ngOnInit(): void {
   }
