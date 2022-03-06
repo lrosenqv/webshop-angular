@@ -14,10 +14,11 @@ import { StartPageComponent } from './pages/home/start-page/start-page.component
 import { UserFormComponent } from './pages/shopping-cart/user-form/user-form.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { LoginComponent } from './components/login/login.component'; 
+import { LoginComponent } from './components/login/login.component';
+import { LoginFormComponent } from './components/login/login-form/login-form.component'; 
 
 @NgModule({
-  declarations: [AppComponent, ProductsComponent, MainmenuComponent, ProductfilterComponent, ShoppingcartComponent, ProductHoverDirective, StartPageComponent, UserFormComponent, ShoppingCartComponent, AdminComponent, LoginComponent],
+  declarations: [AppComponent, ProductsComponent, MainmenuComponent, ProductfilterComponent, ShoppingcartComponent, ProductHoverDirective, StartPageComponent, UserFormComponent, ShoppingCartComponent, AdminComponent, LoginComponent, LoginFormComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]
