@@ -30,7 +30,7 @@ export class ProductService {
   }
 
   checkMatches(fromApi: IProduct[]){
-    let fromLS = this.storage.loadStorage()
+    let fromLS = this.storage.loadStorage('inCart')
     let fromAPI: IProduct[] = [];
     let sum = 0;
     

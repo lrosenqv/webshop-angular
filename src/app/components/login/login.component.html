@@ -1,3 +1,5 @@
 <div>
-    <app-login-form></app-login-form>
+    <app-login-form *ngIf="!onlineUser"></app-login-form>
+    <button *ngIf="onlineUser">Admin</button>
+    <app-logout-btn *ngIf="onlineUser"></app-logout-btn>
 </div>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { InCart } from '../models/InCart';
 
 
 @Injectable({
@@ -12,22 +11,21 @@ export class LocalStorageService {
   cache$ = this.cache.asObservable();
 
   storageList: number[] = [];
-
   constructor() { }
 
-  loadStorage(){
-   this.storageList = JSON.parse(localStorage.getItem('inCart') || '[]')
+  loadStorage(LSList: string){
+   this.storageList = JSON.parse(localStorage.getItem(LSList) || '[]')
    return this.storageList
   }
 
-  getStorage() {
-    let jsonData: number[] = JSON.parse(localStorage.getItem('inCart') || '[]' )
+  getStorage(LSList: string) {
+    let jsonData: number[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
     this.cache.next(jsonData)
     return jsonData
   }
 
-  addToStorage(toAdd: number){
-    let myStorage = this.loadStorage()
+  addToStorage(toAdd: number, LSList: string){
+    let myStorage = this.loadStorage(LSList)
 
     myStorage.push(toAdd)
     this.setStorage(myStorage)
@@ -37,12 +35,12 @@ export class LocalStorageService {
     localStorage.setItem('inCart', JSON.stringify(toSet))
   }
 
-  deleteFromStorage(toDelete: number){
-    let myStorage = this.loadStorage()
+  deleteFromStorage(toDelete: number, LSList: string){
+    let myStorage = this.loadStorage(LSList)
     myStorage.find((item) => {
       if(item == toDelete){
-
+        console.log(toDelete);
       }
-    })
+    });
   }
 }

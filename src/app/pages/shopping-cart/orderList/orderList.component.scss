@@ -1,25 +1,15 @@
-main{
-    display:flex;
-    width:100vw;
-    justify-content: space-between;
-    padding: 3rem 7rem;
-    box-sizing: border-box;
-
-    h2{
-        margin-top:0;
-    }
-}
-
-#shoppingCartForm{
-    background-color: rgb(222, 224, 221);
-    padding: 1.5rem;
-    height:fit-content;
-    margin-top:1rem;
+#shoppingCart{
+    width:62vw;
 }
 
 ul{
     list-style-type: none;
-    width:30vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap:1.5rem;
+    width:100%;
+    margin:0;
     padding:0;
 
     li{
@@ -31,6 +21,7 @@ ul{
         background-color: rgb(222, 224, 221);
         box-sizing: border-box;
         padding:1rem;
+        width:46%;
 
         .cartImg{
             width:4.5rem;

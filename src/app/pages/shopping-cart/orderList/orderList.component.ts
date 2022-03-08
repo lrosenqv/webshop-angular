@@ -4,16 +4,16 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-shoppingcart',
-  templateUrl: './shoppingcart.component.html',
-  styleUrls: ['./shoppingcart.component.scss']
+  selector: 'app-orderList',
+  templateUrl: './orderList.component.html',
+  styleUrls: ['./orderList.component.scss']
 })
-export class ShoppingcartComponent implements OnInit {
+export class OrderListComponent implements OnInit {
   productsInCart: number[] = [];
   allProducts: IProduct[] = [];
 
   productsToRender: IProduct[] = [];
-  totalPrice: number = 0;
+  
 
   constructor(private service: ProductService, private storage: LocalStorageService) {}
 
@@ -30,13 +30,8 @@ export class ShoppingcartComponent implements OnInit {
       this.productsToRender = matchedDataFrService;
     });
 
-    this.service.totalPrice$.subscribe((sumFromService) => {
-      this.totalPrice = sumFromService;
-      console.log(this.totalPrice);
-    })
-
     this.service.getProducts();
-    this.storage.getStorage();
+    this.storage.getStorage('inCart');
   }
 
   removeFromCart(productIndex: number){

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router, RouterEvent } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -15,18 +14,14 @@ export class LoginFormComponent implements OnInit {
     password: ['']
   });
 
-  constructor(private fb: FormBuilder, private service: LoginService, public route: Router) { }
+
+  constructor(private fb: FormBuilder, private service: LoginService) { }
 
   ngOnInit(): void {
     this.service.getUsers()
-    //this.route.activateEvents routeroutlet
-    //this.route.events.subscribe router
   }
 
   userValidation(){
-   let check = this.service.checkUser(this.loginForm.value)
-   if(check){
-     this.route.navigateByUrl('admin')
-   }
+    this.service.checkUser(this.loginForm.value)
   }
 }

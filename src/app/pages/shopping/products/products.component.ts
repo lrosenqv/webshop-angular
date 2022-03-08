@@ -23,11 +23,11 @@ export class ProductsComponent implements OnInit {
       this.inCartProducts = dataFromLS;
     });
 
-    this.storage.getStorage();
+    this.storage.getStorage('inCart');
     this.service.getProducts();
   }
 
   addToLS(productAdded: number){
-    this.storage.addToStorage(productAdded)
+    this.storage.addToStorage(productAdded, 'inCart')
   }
 }

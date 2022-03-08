@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
+import { OrderCheckoutService } from './services/order-checkout.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
+  totalPrice: number = 0;
 
-  constructor() { }
+  constructor(private orderService: OrderCheckoutService, private service: ProductService ) { }
 
   ngOnInit(): void {
+    this.service.totalPrice$.subscribe((sumFromService) => {
+      this.totalPrice = sumFromService;
+      console.log(this.totalPrice);
+    })
+
+    this.orderService.getOrderDetails()
   }
 
 }

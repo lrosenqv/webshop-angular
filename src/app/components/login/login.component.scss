@@ -8,3 +8,12 @@ div{
     color:white;
     column-gap: 0.4rem;
 }
+
+button{
+    padding:0.2rem 0.4rem;
+    margin-left:0.2rem;
+    
+    &:hover{
+        background-color: rgb(111, 121, 110);;
+    }
+}
