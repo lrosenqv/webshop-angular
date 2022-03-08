@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { IProdInOrder } from '../models/IProdInOrder';
 
 
 @Injectable({
@@ -7,10 +8,10 @@ import { Subject } from 'rxjs';
 })
 
 export class LocalStorageService {
-  private cache = new Subject<number[]>();
+  private cache = new Subject<IProdInOrder[]>();
   cache$ = this.cache.asObservable();
 
-  storageList: number[] = [];
+  storageList: IProdInOrder[] = [];
   constructor() { }
 
   loadStorage(LSList: string){
@@ -19,28 +20,19 @@ export class LocalStorageService {
   }
 
   getStorage(LSList: string) {
-    let jsonData: number[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
+    let jsonData: IProdInOrder[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
     this.cache.next(jsonData)
     return jsonData
   }
 
-  addToStorage(toAdd: number, LSList: string){
+  addToStorage(toAdd: IProdInOrder, LSList: string){
     let myStorage = this.loadStorage(LSList)
 
     myStorage.push(toAdd)
     this.setStorage(myStorage)
   }
 
-  setStorage(toSet: number[]) {
+  setStorage(toSet: IProdInOrder[]) {
     localStorage.setItem('inCart', JSON.stringify(toSet))
-  }
-
-  deleteFromStorage(toDelete: number, LSList: string){
-    let myStorage = this.loadStorage(LSList)
-    myStorage.find((item) => {
-      if(item == toDelete){
-        console.log(toDelete);
-      }
-    });
   }
 }

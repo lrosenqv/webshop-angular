@@ -15,10 +15,9 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.service.totalPrice$.subscribe((sumFromService) => {
       this.totalPrice = sumFromService;
-      console.log(this.totalPrice);
-    })
+    });
 
-    this.orderService.getOrderDetails()
+    this.orderService.getOrderDetails();
   }
 
 }

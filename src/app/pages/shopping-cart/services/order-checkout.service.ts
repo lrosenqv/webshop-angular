@@ -17,7 +17,6 @@ export class OrderCheckoutService {
     this.http.get<IOrder[]>(environment.orderCheckoutUrl)
     .subscribe((dataFromAPI) => {
       this.order.next(dataFromAPI)
-      console.log(dataFromAPI);
     });
   }
 }

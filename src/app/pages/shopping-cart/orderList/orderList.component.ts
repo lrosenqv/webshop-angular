@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IProdInOrder } from 'src/app/models/IProdInOrder';
 import { IProduct } from 'src/app/models/IProduct';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -9,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./orderList.component.scss']
 })
 export class OrderListComponent implements OnInit {
-  productsInCart: number[] = [];
+  productsInCart: IProdInOrder[] = [];
   allProducts: IProduct[] = [];
 
   productsToRender: IProduct[] = [];
@@ -34,10 +35,10 @@ export class OrderListComponent implements OnInit {
     this.storage.getStorage('inCart');
   }
 
-  removeFromCart(productIndex: number){
-    let updatedCart = this.productsInCart
-    updatedCart.splice(productIndex,1)
-
-    this.storage.setStorage(updatedCart)
+  removeFromCart(productId: number){
+    this.productsToRender.splice(productId,1)
+    this.productsInCart.splice(productId, 1)
+    this.storage.setStorage(this.productsInCart)
+    this.service.getProducts();
   }
 }

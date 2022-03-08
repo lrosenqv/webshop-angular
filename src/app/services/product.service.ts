@@ -24,27 +24,22 @@ export class ProductService {
     this.http
     .get<IProduct[]>(environment.productUrl)
     .subscribe((dataFromApi) => {
-      this.products.next(dataFromApi)
-      this.checkMatches(dataFromApi);
+      this.products.next(dataFromApi)      
+      this.checkMatches(dataFromApi)
     });
   }
 
   checkMatches(fromApi: IProduct[]){
     let fromLS = this.storage.loadStorage('inCart')
-    let fromAPI: IProduct[] = [];
-    let sum = 0;
-    
-    for (let i = 0; i < fromLS.length; i++) {
-      if(fromApi[i].id = fromLS[i]){
-        fromAPI.push(fromApi[i])
-        this.inStorage.next(fromAPI)
-      }
-    }
-    sum = this.countTotal(fromAPI)
-    this.totalPrice.next(sum)
+    let matches = fromApi.filter((product) => {
+      return fromLS.some((prod) => {
+        return prod.productId === product.id
+      });
+    })
+    this.inStorage.next(matches)
   }
 
-  countTotal(arr: IProduct[]){
-    return arr.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
+  countTotal(products: IProduct[]){
+    return products.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
   }
 }
