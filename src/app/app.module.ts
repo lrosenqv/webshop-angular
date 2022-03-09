@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './pages/shopping/products/products.component';
 import { MainmenuComponent } from './components/mainmenu/mainmenu.component';
-import { ProductfilterComponent } from './pages/shopping/productfilter/productfilter.component';
+import { ProductfilterComponent } from './pages/shopping/components/productfilter/productfilter.component';
 import { OrderListComponent } from './pages/shopping-cart/orderList/orderList.component';
 import { ProductHoverDirective } from './directives/product-hover.directive';
 import { StartPageComponent } from './pages/home/start-page/start-page.component';

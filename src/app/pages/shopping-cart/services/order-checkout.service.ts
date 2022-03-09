@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IOrder } from '../models/IOrder';
+import { UserOrder } from '../models/UserOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class OrderCheckoutService {
     .subscribe((dataFromAPI) => {
       this.order.next(dataFromAPI)
     });
+  }
+
+  orderBuild(userDetails: UserOrder){
+    console.log(userDetails);
   }
 }

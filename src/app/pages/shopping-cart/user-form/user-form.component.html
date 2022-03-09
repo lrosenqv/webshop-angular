@@ -1,23 +1,22 @@
-<form id="userForm">
+<form id="userForm" [formGroup]="userForm" (submit)="handleChange(userForm)">
     <h3>Your Information</h3>
 
-    <label>Firstname</label>
-    <input type="text" placeholder="John">
+    <label>Company ID</label>
+    <input type="number" formControlName="companyId" placeholder="1234"> 
 
-    <label>Lastname</label>
-    <input type="text" placeholder="Doe">
-
-    <label>Adress</label>
-    <input type="text" placeholder="Sesame Street 123">
-
-    <label>Postal Code</label>
-    <input type="number" placeholder="123 45">
-
-    <label>City</label>
-    <input type="text" placeholder="Gotham City">
+    <label>Full name</label>
+    <input type="text" formControlName="createdBy" placeholder="John Doe">
 
     <label>Email</label>
-    <input type="text" placeholder="johnDoe@example.com">
+    <input type="email" formControlName="email" placeholder="johnDoe@example.com">
+
+    <label>Payment</label>
+    <select formControlName="payment">
+        <option>Klarna</option>
+        <option>MasterCard</option>
+        <option>PayPal</option>
+    </select>
 
     <button type="submit">Place Order</button>
 </form>
+
