@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
-import { OrderCheckoutService } from './services/order-checkout.service';
+import { OrderService } from 'src/app/services/order.service'; 
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,7 +10,7 @@ import { OrderCheckoutService } from './services/order-checkout.service';
 export class ShoppingCartComponent implements OnInit {
   totalPrice: number = 0;
 
-  constructor(private orderService: OrderCheckoutService, private service: ProductService ) { }
+  constructor(private orderService: OrderService, private service: ProductService ) { }
 
   ngOnInit(): void {
     this.service.totalPrice$.subscribe((sumFromService) => {

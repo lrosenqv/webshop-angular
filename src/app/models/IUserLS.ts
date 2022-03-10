@@ -1,4 +1,4 @@
-export interface userLS{
+export interface IUserLS{
     username: string;
     isAdmin: boolean;
 }

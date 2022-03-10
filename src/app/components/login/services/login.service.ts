@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { userLS } from 'src/app/models/userToLS';
-import { IUser } from '../models/IUser';
+import { IUserLS } from 'src/app/models/IUserLS';
+import { IUser } from '../../../models/IUser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 private existingUsers: IUser[] = [];
-personToLS: userLS = {username: '', isAdmin: false};
+personToLS: IUserLS = {username: '', isAdmin: false};
 
-private isOnline = new Subject<userLS[]>();
+private isOnline = new Subject<IUserLS[]>();
 isOnline$ = this.isOnline.asObservable();
 
 private online = new Subject<boolean>();
@@ -45,7 +45,7 @@ online$ = this.online.asObservable();
   }
 
   checkOnline(){
-    let userInLS: userLS[] = JSON.parse(localStorage.getItem('onlineUser') || '[]')
+    let userInLS: IUserLS[] = JSON.parse(localStorage.getItem('onlineUser') || '[]')
     if(userInLS){
       this.isOnline.next(userInLS)
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR} from '@angular/core';
-import { userLS } from 'src/app/models/userToLS';
+import { IUserLS } from 'src/app/models/IUserLS';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoginService } from './services/login.service';
 })
 export class LoginComponent implements OnInit {
   onlineUser: boolean = false;
-  userOnline: userLS[] = [];
+  userOnline: IUserLS[] = [];
 
   constructor(private service: LoginService) { 
   }
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.checkOn(this.userOnline)
   }
 
-  checkOn(value: userLS[]){
+  checkOn(value: IUserLS[]){
     if(value.length < 1){
       this.onlineUser = false;
     } else {

@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderCheckoutService {
+export class OrderService {
   private orders = new Subject<IOrder[]>();
   orders$ = this.orders.asObservable();
 

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { IOrder } from 'src/app/models/IOrder'; 
-import { OrderCheckoutService } from '../services/order-checkout.service';
+import { OrderService } from 'src/app/services/order.service'; 
 
 
 @Component({
@@ -23,7 +23,7 @@ export class UserFormComponent implements OnInit {
     payment: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private service: OrderCheckoutService, private prodService: ProductService) { }
+  constructor(private fb: FormBuilder, private service: OrderService, private prodService: ProductService) { }
 
   ngOnInit(): void {
     this.prodService.totalPrice$.subscribe((valueFromService)=>{

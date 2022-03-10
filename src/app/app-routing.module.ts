@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductsComponent } from './pages/shopping/products/products.component';
-import { StartPageComponent } from './pages/home/start-page/start-page.component';
+import { ProductsComponent } from './pages/shop/products/products.component';
+import { StartPageComponent } from './pages/start/start-page/start-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 

@@ -5,11 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { ProductsComponent } from './pages/shopping/products/products.component';
+import { ProductsComponent } from './pages/shop/products/products.component';
 import { MainmenuComponent } from './components/mainmenu/mainmenu.component';
-import { ProductfilterComponent } from './pages/shopping/components/productfilter/productfilter.component';
+import { ProductfilterComponent } from './pages/shop/productfilter/productfilter.component';
 import { OrderListComponent } from './pages/shopping-cart/orderList/orderList.component';
-import { StartPageComponent } from './pages/home/start-page/start-page.component';
+import { StartPageComponent } from './pages/start/start-page/start-page.component';
 import { UserFormComponent } from './pages/shopping-cart/user-form/user-form.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AdminComponent } from './pages/admin/admin.component';
