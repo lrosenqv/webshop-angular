@@ -28,16 +28,22 @@ export class OrderListComponent implements OnInit {
 
     this.service.inStorage$.subscribe((matchedDataFrService) => {
       this.productsToRender = matchedDataFrService;
+      console.log(this.productsToRender);
     });
 
     this.service.getProducts();
     this.storage.getStorage('inCart');
   }
 
-  removeFromCart(productId: number){
-    this.productsToRender.splice(productId,1)
-    this.productsInCart.splice(productId, 1)
-    this.storage.setStorage(this.productsInCart)
+  removeFromCart(productIndex: number, productId: number){
+    this.productsInCart.splice(productIndex,1)
+    this.storage.setStorage(this.productsInCart, 'inCart')
+    
+    this.productsToRender.findIndex((item, index) => {
+      if(productId == item.id){
+      this.productsToRender.splice(index, 1)
+      }
+    });
     this.service.getProducts();
   }
 }

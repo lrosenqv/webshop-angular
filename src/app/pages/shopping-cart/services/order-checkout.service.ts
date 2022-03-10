@@ -14,9 +14,6 @@ export class OrderCheckoutService {
   private order = new Subject<IOrder[]>();
   order$ = this.order.asObservable();
 
-  /*private cart = new Subject<IOrder[]>();
-  cart$ = this.cart.asObservable();*/
-
   constructor(private http: HttpClient, private storage: LocalStorageService) { }
 
   getOrderDetails(){
@@ -34,5 +31,7 @@ export class OrderCheckoutService {
     });
 
     console.log(newOrder);
+    localStorage.setItem('orders', JSON.stringify(newOrder))
+    localStorage.removeItem('inCart')
   }
 }

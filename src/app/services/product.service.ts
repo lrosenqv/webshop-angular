@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IOrderRows } from '../models/IOrderRows';
 import { IProduct } from '../models/IProduct';
 import { ICategory } from '../pages/shopping-cart/models/ICategory';
+import { IOrder } from '../pages/shopping-cart/models/IOrder';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -42,7 +44,7 @@ export class ProductService {
   }
 
   checkMatches(fromApi: IProduct[]){
-    let fromLS = this.storage.loadStorage('inCart')
+    let fromLS: IOrderRows[] = this.storage.loadStorage('inCart')
     let matches = fromApi.filter((product) => {
       return fromLS.some((prod) => {
         return prod.productId === product.id
