@@ -1,3 +1,5 @@
+import { IOrderRows } from "src/app/models/IOrderRows";
+
 export interface IOrder{
     id: number;
     companyId: number;
@@ -6,13 +8,6 @@ export interface IOrder{
     paymentMethod: string;
     totalPrice: number;
     status: number;
-    orderRows: [
-        {
-        id: number,
-        productId: number,
-        product: string,
-        amount: number,
-        orderId: number
-        }
-    ]
+    email: string;
+    orderRows: IOrderRows[];
 }

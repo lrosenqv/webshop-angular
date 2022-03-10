@@ -17,9 +17,10 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { LogoutBtnComponent } from './components/logout-btn/logout-btn.component';
+import { PlaceholderDirective } from './directives/placeholder.directive';
 
 @NgModule({
-  declarations: [AppComponent, ProductsComponent, MainmenuComponent, ProductfilterComponent, OrderListComponent, ProductHoverDirective, StartPageComponent, UserFormComponent, ShoppingCartComponent, AdminComponent, LoginComponent, LoginFormComponent, LogoutBtnComponent],
+  declarations: [AppComponent, ProductsComponent, MainmenuComponent, ProductfilterComponent, OrderListComponent, ProductHoverDirective, StartPageComponent, UserFormComponent, ShoppingCartComponent, AdminComponent, LoginComponent, LoginFormComponent, LogoutBtnComponent, PlaceholderDirective],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]

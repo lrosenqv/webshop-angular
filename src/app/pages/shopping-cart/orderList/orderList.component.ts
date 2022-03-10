@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IProdInOrder } from 'src/app/models/IProdInOrder';
+import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,12 +10,11 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./orderList.component.scss']
 })
 export class OrderListComponent implements OnInit {
-  productsInCart: IProdInOrder[] = [];
+  productsInCart: IOrderRows[] = [];
   allProducts: IProduct[] = [];
 
   productsToRender: IProduct[] = [];
   
-
   constructor(private service: ProductService, private storage: LocalStorageService) {}
 
   ngOnInit(): void {

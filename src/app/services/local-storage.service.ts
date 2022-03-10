@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IProdInOrder } from '../models/IProdInOrder';
+import { IOrderRows } from '../models/IOrderRows';
 
 
 @Injectable({
@@ -8,10 +8,10 @@ import { IProdInOrder } from '../models/IProdInOrder';
 })
 
 export class LocalStorageService {
-  private cache = new Subject<IProdInOrder[]>();
+  private cache = new Subject<IOrderRows[]>();
   cache$ = this.cache.asObservable();
 
-  storageList: IProdInOrder[] = [];
+  storageList: IOrderRows[] = [];
   constructor() { }
 
   loadStorage(LSList: string){
@@ -20,19 +20,19 @@ export class LocalStorageService {
   }
 
   getStorage(LSList: string) {
-    let jsonData: IProdInOrder[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
+    let jsonData: IOrderRows[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
     this.cache.next(jsonData)
     return jsonData
   }
 
-  addToStorage(toAdd: IProdInOrder, LSList: string){
+  addToStorage(toAdd: IOrderRows, LSList: string){
     let myStorage = this.loadStorage(LSList)
 
     myStorage.push(toAdd)
     this.setStorage(myStorage)
   }
 
-  setStorage(toSet: IProdInOrder[]) {
+  setStorage(toSet: IOrderRows[]) {
     localStorage.setItem('inCart', JSON.stringify(toSet))
   }
 }

@@ -2,7 +2,7 @@
     <h2>Your Order</h2>
     <app-orderList></app-orderList>
 
-    <section id="shoppingCartForm">
+    <section id="shoppingCartForm" (totalPrice)="totalPrice">
         <p>Total: {{ totalPrice | currency: 'SEK' }}</p>
         <app-user-form></app-user-form>
     </section>

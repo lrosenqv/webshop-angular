@@ -3,20 +3,27 @@
 
     <label>Company ID</label>
     <input type="number" formControlName="companyId" placeholder="1234"> 
+    <div *ngIf="companyId?.touched&&companyId?.invalid" class="formErrorMsg">Mandatory</div>
 
-    <label>Full name</label>
-    <input type="text" formControlName="createdBy" placeholder="John Doe">
+    <label>Firstname</label>
+    <input type="text" formControlName="firstname" placeholder="John" name="firstName">
+    <div *ngIf="firstname?.touched&&firstname?.invalid" class="formErrorMsg">Mandatory</div>
+
+    <label>Lastname</label>
+    <input type="text" formControlName="lastname" placeholder="Doe">
 
     <label>Email</label>
     <input type="email" formControlName="email" placeholder="johnDoe@example.com">
+    <div *ngIf="email?.touched&&email?.invalid" class="formErrorMsg">Invalid</div>
 
     <label>Payment</label>
     <select formControlName="payment">
+        <option value="" id="selectPlaceholder">-- Choose payment method --</option>
         <option>Klarna</option>
         <option>MasterCard</option>
         <option>PayPal</option>
     </select>
 
-    <button type="submit">Place Order</button>
+    <button type="submit" form="userForm" [disabled]="userForm.invalid" [contentEditable]="userForm.valid">Place Order</button>
 </form>
 
