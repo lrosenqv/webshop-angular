@@ -1,3 +1,55 @@
-<div>
-    <h3>Orders</h3>
-</div>
+<main>
+  <h1>Orders</h1>
+  <ul>
+    <li *ngFor="let o of orders">
+      <details #details>
+        <summary>
+          <h2>OrderId: {{ o.id }}</h2>
+          <p>No. of items: {{ o.orderRows.length }}</p>
+          <p>{{ o.created | date:'dd MMMM yyyy hh:m' }}</p>
+          <p>{{ o.totalPrice | currency:'SEK' }}</p>
+        </summary>
+
+        <div id="orderDetails">
+          <ul id="orderRows">
+            <h3>Order details</h3>
+            <li>
+              <fa-icon [icon]="faAdd"></fa-icon> 
+              {{ o.createdBy }}
+            </li>
+            <li>
+              <fa-icon [icon]="faEnvelope"></fa-icon> 
+              {{ o.email }}
+            </li>
+            <li>
+              <fa-icon [icon]="faCreditCard"></fa-icon> 
+              {{ o.paymentMethod }}
+            </li>
+            <li>
+              <fa-icon [icon]="faBriefcase"></fa-icon> 
+              {{ o.companyId }}
+            </li>
+            <li>
+              <fa-icon [icon]="faChartLine"></fa-icon> 
+              {{ o.status }}
+            </li>
+          </ul>
+
+          <ul id="productRows">
+            <h3>Items in order</h3>
+            <li *ngFor="let or of o.orderRows" class="orderRows">
+              <span>{{ or.productId }}</span>
+              <p>{{ or.product }}</p>
+              <span>{{ or.amount | currency:'SEK '}}</span>
+            </li>
+          </ul>
+          <button>Cancel order</button>
+        </div>
+      </details>
+    </li>
+  </ul>
+</main>
+
+<!--<ul *ngFor="let or of o.orderRows">
+        <li>{{ or.product }}</li>
+</ul>-->

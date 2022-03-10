@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { IOrder } from '../shopping-cart/models/IOrder';
+import { faBriefcase, faBars, faChartArea, faAddressCard, faEnvelope, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-admin',
@@ -9,6 +9,13 @@ import { IOrder } from '../shopping-cart/models/IOrder';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  faEnvelope = faEnvelope;
+  faAdd = faAddressCard;
+  faCreditCard = faCreditCard;
+  faBriefcase = faBriefcase;
+  faBars = faBars;
+  faChartLine = faChartArea;
+
   isAdmin: boolean = false;
   orders: IOrder[] = [];
 
@@ -16,5 +23,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.orders = this.storage.loadStorage('orders');
+    console.log(this.orders);
+    
   }
 }

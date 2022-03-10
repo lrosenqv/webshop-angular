@@ -24,14 +24,14 @@ export class OrderCheckoutService {
   }
 
   orderBuild(userDetails: IOrder){
+    let orderList: IOrder[] = this.storage.loadStorage('orders')
     let cart: IOrderRows[] = this.storage.loadStorage('inCart');
-    let newOrder = userDetails;
     cart.forEach((product) => {
-      newOrder.orderRows.push(product)
+      userDetails.orderRows.push(product)
     });
 
-    console.log(newOrder);
-    localStorage.setItem('orders', JSON.stringify(newOrder))
+    orderList.push(userDetails)
+    localStorage.setItem('orders', JSON.stringify(orderList))
     localStorage.removeItem('inCart')
   }
 }
