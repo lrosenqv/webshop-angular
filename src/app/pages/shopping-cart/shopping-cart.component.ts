@@ -17,7 +17,7 @@ export class ShoppingCartComponent implements OnInit {
       this.totalPrice = sumFromService;
     });
 
-    this.orderService.getOrderDetails();
+    this.orderService.getOrdersDB();
   }
 
 }

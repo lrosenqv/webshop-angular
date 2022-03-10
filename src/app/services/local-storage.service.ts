@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IOrderRows } from '../models/IOrderRows';
-import { IOrder } from '../pages/shopping-cart/models/IOrder';
+import { IOrder } from '../models/IOrder'; 
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,6 @@ export class LocalStorageService {
    return storage
   }
 
-  /*loadStorage(LSList: string){
-    this.storageList = JSON.parse(localStorage.getItem(LSList) || '[]')
-    return this.storageList
-   }*/
-
   getStorage(LSList: string) {
     let jsonData: IOrderRows[] = JSON.parse(localStorage.getItem(LSList) || '[]' )
     this.cache.next(jsonData)
@@ -40,5 +35,9 @@ export class LocalStorageService {
 
   setStorage(toSet: any[], LSList: string) {
     localStorage.setItem(LSList, JSON.stringify(toSet))
+  }
+
+  removeStorage(LSList: string){
+    localStorage.removeItem(LSList)
   }
 }

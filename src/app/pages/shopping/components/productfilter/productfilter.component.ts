@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ICategory } from 'src/app/pages/shopping-cart/models/ICategory';
+import { ICategory } from 'src/app/models/ICategory'; 
 import { ProductService } from 'src/app/services/product.service';
-
 
 @Component({
   selector: 'app-productfilter',
@@ -10,7 +9,6 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductfilterComponent implements OnInit {
   categories: ICategory[] = [];
-  //sliderValue: number = 0;
   outputValue: number = 0;
 
   constructor(private service: ProductService) { }

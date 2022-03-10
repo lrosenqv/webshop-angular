@@ -30,11 +30,9 @@ export class ProductsComponent implements OnInit {
 
   addToLS(productAdded: IProduct){
     let productToAdd: IOrderRows = {
-      id: 0,
       productId: productAdded.id,
-      product: productAdded.name,
-      amount: productAdded.price,
-      orderId: 0
+      product: null,
+      amount: productAdded.price
     }
     this.storage.addToStorage(productToAdd, 'inCart')
   }

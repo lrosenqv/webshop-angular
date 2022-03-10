@@ -4,7 +4,7 @@
     <li *ngFor="let o of orders">
       <details #details>
         <summary>
-          <h2>OrderId: {{ o.id }}</h2>
+          <h2>OrderId: {{ o.companyId }}</h2>
           <p>No. of items: {{ o.orderRows.length }}</p>
           <p>{{ o.created | date:'dd MMMM yyyy hh:m' }}</p>
           <p>{{ o.totalPrice | currency:'SEK' }}</p>
@@ -18,20 +18,12 @@
               {{ o.createdBy }}
             </li>
             <li>
-              <fa-icon [icon]="faEnvelope"></fa-icon> 
-              {{ o.email }}
-            </li>
-            <li>
               <fa-icon [icon]="faCreditCard"></fa-icon> 
               {{ o.paymentMethod }}
             </li>
             <li>
               <fa-icon [icon]="faBriefcase"></fa-icon> 
               {{ o.companyId }}
-            </li>
-            <li>
-              <fa-icon [icon]="faChartLine"></fa-icon> 
-              {{ o.status }}
             </li>
           </ul>
 

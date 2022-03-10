@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-import { IOrder } from '../models/IOrder';
+import { IOrder } from 'src/app/models/IOrder'; 
 import { OrderCheckoutService } from '../services/order-checkout.service';
 
 
@@ -12,7 +12,8 @@ import { OrderCheckoutService } from '../services/order-checkout.service';
 })
 export class UserFormComponent implements OnInit {
   newDate: Date = new Date();
-  totalPrice: number = 0
+  totalPrice: number = 0;
+  newOrderId: number = 0;
 
   userForm = this.fb.group({
     companyId: ['', [Validators.required]],
@@ -20,7 +21,6 @@ export class UserFormComponent implements OnInit {
     firstname: ['', [Validators.required]],
     lastname: [''],
     payment: ['', [Validators.required]],
-    email:['', [Validators.required, Validators.email]]
   });
 
   constructor(private fb: FormBuilder, private service: OrderCheckoutService, private prodService: ProductService) { }
@@ -29,6 +29,7 @@ export class UserFormComponent implements OnInit {
     this.prodService.totalPrice$.subscribe((valueFromService)=>{
       this.totalPrice = valueFromService;
     });
+    this.refresh();
   }
 
   get companyId(){
@@ -43,30 +44,24 @@ export class UserFormComponent implements OnInit {
     return this.userForm.get('payment')
   }
 
-  get email(){
-    return this.userForm.get('email')
+  refresh(){
+    this.service.getOrdersDB().subscribe((data) => {
+    });
   }
 
   handleChange(form: FormGroup){
     let newOrder: IOrder = {
-      id: 0,
       companyId: form.value.companyId,
       created: form.value.created,
       createdBy: form.value.firstname + ' ' + form.value.lastname,
       paymentMethod: form.value.payment,
       totalPrice: this.totalPrice,
-      status: 0,
-      email: form.value.email,
       orderRows: []
     }
+
     this.service.orderBuild(newOrder)
+    .subscribe((data)=>{
+      this.refresh();
+    });
   }
 }
-/*  id: number;
-    companyId: number;
-    created: Date;
-    createdBy: string;
-    paymentMethod: string;
-    totalPrice: number;
-    status: number;
-    orderRows: IOrderRows[];*/

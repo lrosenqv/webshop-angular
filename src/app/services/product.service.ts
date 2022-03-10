@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IOrderRows } from '../models/IOrderRows';
 import { IProduct } from '../models/IProduct';
-import { ICategory } from '../pages/shopping-cart/models/ICategory';
-import { IOrder } from '../pages/shopping-cart/models/IOrder';
+import { ICategory } from '../models/ICategory';
+import { IOrder } from '../models/IOrder';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class ProductService {
 
   getProducts(){
     this.http
-    .get<IProduct[]>(environment.productUrl)
+    .get<IProduct[]>(environment.urlApi + 'products')
     .subscribe((dataFromApi) => {
       this.products.next(dataFromApi)      
       this.checkMatches(dataFromApi)
@@ -37,7 +37,7 @@ export class ProductService {
 
   getCategory(){
     this.http
-    .get<ICategory[]>(environment.categoryUrl)
+    .get<ICategory[]>(environment.urlApi + 'categories')
     .subscribe((categories) => {
       this.categories.next(categories)
     });

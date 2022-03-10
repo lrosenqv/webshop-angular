@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { IOrder } from '../shopping-cart/models/IOrder';
+import { IOrder } from 'src/app/models/IOrder'; 
 import { faBriefcase, faBars, faChartArea, faAddressCard, faEnvelope, faCreditCard } from '@fortawesome/free-solid-svg-icons'
+import { OrderCheckoutService } from '../shopping-cart/services/order-checkout.service';
 
 @Component({
   selector: 'app-admin',
@@ -19,11 +20,16 @@ export class AdminComponent implements OnInit {
   isAdmin: boolean = false;
   orders: IOrder[] = [];
 
-  constructor(private storage: LocalStorageService) {}
+  constructor(private storage: LocalStorageService, private service: OrderCheckoutService) {}
 
   ngOnInit(): void {
-    this.orders = this.storage.loadStorage('orders');
-    console.log(this.orders);
-    
+    this.refreshOrderList();
+  }
+
+  refreshOrderList(){
+    this.service.orders$
+    .subscribe((data) => {
+      this.orders = data;
+    });
   }
 }
