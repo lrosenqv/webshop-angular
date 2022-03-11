@@ -1,0 +1,30 @@
+section {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.377);
+}
+
+img{
+  max-width: 25%;
+  filter: grayscale(100%);
+  mix-blend-mode: darken;
+}
+
+div{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button{
+  background-color: rgb(91, 109, 100);
+  position:absolute;
+  margin-top: 20rem;
+  align-self: center;
+  font-size: 3rem;
+
+  &:hover{
+    background-color: rgb(77, 92, 84);
+  }
+}

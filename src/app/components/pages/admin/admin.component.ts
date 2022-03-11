@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrder } from 'src/app/models/IOrder'; 
 import { faBriefcase, faBars, faChartArea, faAddressCard, faEnvelope, faCreditCard } from '@fortawesome/free-solid-svg-icons'
-import { OrderService } from 'src/app/services/order.service'; 
+import { OrderService } from 'src/app/services/orderService/order.service';
 import { IDBOrder } from 'src/app/models/IDBOrder';
 
 @Component({

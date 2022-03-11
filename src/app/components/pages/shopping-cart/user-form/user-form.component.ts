@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/productService/product.service';
-import { OrderService } from 'src/app/services/order.service';
+import { OrderService } from 'src/app/services/orderService/order.service';
 import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
 import { IDBOrder } from 'src/app/models/IDBOrder';
 import { Order } from 'src/app/models/Order';
@@ -68,11 +68,10 @@ export class UserFormComponent implements OnInit {
     let newOrder = this.createOrder();
     this.service.placeOrder(newOrder)
       .subscribe((resp) => {
-        console.log("Ordered!", resp);
         this.service.getOrdersDB();
     });
-    this.orderAccepted = true;
     this.userForm.reset();
     this.storage.removeStorage('inCart')
+    window.location.reload();
   }
 }
