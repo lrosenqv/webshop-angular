@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/models/ICategory';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/productService/product.service';
 
 @Component({
   selector: 'app-productfilter',
@@ -19,15 +19,14 @@ export class ProductfilterComponent implements OnInit {
     this.service.categories$.subscribe((dataFromApi) =>{
       this.categories = dataFromApi
     })
-
     this.service.getCategory();
   }
 
   categoryCheck(el: HTMLInputElement, filterInput: number){
-    let allFilterInputs = document.querySelectorAll('input')
+    document.querySelectorAll('input')
       .forEach((input) => {
         if(!input.checked){
-          this.service.getProducts();
+          this.service.filterProducts([5,6,7,8])
         }
       });
 
@@ -43,5 +42,9 @@ export class ProductfilterComponent implements OnInit {
       });
     }
     this.service.filterProducts(this.renderThese)
+  }
+
+  resetFilters(){
+    this.service.filterProducts([5,6,7,8])
   }
 }

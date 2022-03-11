@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/productService/product.service';
 import { OrderService } from 'src/app/services/order.service';
-import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
+import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
 import { IDBOrder } from 'src/app/models/IDBOrder';
 import { Order } from 'src/app/models/Order';
 import { IOrderRows } from 'src/app/models/IOrderRows';

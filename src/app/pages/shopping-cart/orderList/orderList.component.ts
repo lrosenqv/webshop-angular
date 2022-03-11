@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
-import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
-import { ProductService } from 'src/app/services/product.service';
+import { LocalStorageService } from 'src/app/services/localStorageService/local-storage.service';
+import { ProductService } from 'src/app/services/productService/product.service';
 
 @Component({
   selector: 'app-orderList',

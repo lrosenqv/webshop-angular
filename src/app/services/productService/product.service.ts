@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IOrderRows } from '../models/IOrderRows';
-import { IProduct } from '../models/IProduct';
-import { ICategory } from '../models/ICategory';
-import { LocalStorageService } from './localStorage/local-storage.service';
+import { IOrderRows } from 'src/app/models/IOrderRows';
+import { IProduct } from 'src/app/models/IProduct';
+import { ICategory } from 'src/app/models/ICategory';
+import { LocalStorageService } from '../localStorageService/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
