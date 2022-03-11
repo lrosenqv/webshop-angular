@@ -1,75 +1,67 @@
 button{
-    padding:0.2rem 0.4rem;
-    margin-left:0.2rem;
+  padding:0.2rem 0.4rem;
+  margin-left:0.2rem;
 }
 
 h2{
-    margin:0;
-    color:rgb(87, 97, 85);
+  margin:0;
+  color:rgb(87, 97, 85);
 
-    &:last-of-type{
-        margin-bottom:0.5rem;
-    }
+  &:last-of-type{
+    margin-bottom:0.5rem;
+  }
 }
 
 h3{
-    color:rgb(87, 97, 85);
-    margin-bottom:0.4rem;
-    margin-top:1rem;
+  color:rgb(87, 97, 85);
+  margin-bottom:0.4rem;
+  margin-top:1rem;
 
-    &:last-of-type{
-        margin-top:1.5rem;
-    }
+  &:last-of-type{
+    margin-top:1.5rem;
+  }
 }
 
 div{
-    background-color: rgb(222, 224, 221);
-    box-sizing: border-box;
-    
-    &:first-child{
-        padding:2rem 1.2rem 1.5rem;
-    }
+  background-color: rgb(222, 224, 221);
+  box-sizing: border-box;
 
-    &:last-child{
-        padding: 0.5rem 1.2rem 2rem;
-    }
+  &:first-child{
+    padding:2rem 1.2rem 1.5rem;
+  }
 
-    ul{
-        list-style-type: none;
-        padding:0;
-        margin:0;
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.7rem;
-    
-        li{
-            display: flex;
-            flex-direction: row;
-            color:rgb(113, 131, 109);
-        
-            label{
-                order:1;
-            }
-        
-            input{
-                order:0;
-                cursor: pointer;
-            }
-        }
-    }
+  &:last-child{
+    padding: 0.5rem 1.2rem 2rem;
+  }
 
-    input[type="range"]{
+  ul{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.7rem;
+
+    li{
+      display: flex;
+      flex-direction: row;
+      color:rgb(113, 131, 109);
+
+      label{
+        order:1;
+      }
+
+      input{
+        order:0;
         cursor: pointer;
+        }
+      }
     }
 
-    output{
-        font-size: 0.9rem;
-    }
-
-    #resetFilter{
-        font-size: 1.1rem;
-        margin-top:1.5rem;
-    }
+  #resetFilter{
+    font-size: 1.1rem;
+    margin-top:1.5rem;
+  }
 }
 
 

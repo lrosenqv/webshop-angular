@@ -1,26 +1,26 @@
 main{
-    display:grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto;
-    justify-content: space-between;
-    padding: 3rem 7rem;
-    box-sizing: border-box;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
+  justify-content: space-between;
+  padding: 3rem 7rem;
+  box-sizing: border-box;
 
-    h2{
-        margin-top:0;
-        grid-row: 1;
-        grid-column: 1;
-    }
+  h2{
+    margin-top:0;
+    grid-row: 1;
+    grid-column: 1;
+  }
 }
 
 #shoppingCartForm{
-    background-color: rgb(222, 224, 221);
-    padding: 1.5rem;
-    height:fit-content;
-    grid-row: 2;
-    grid-column: 2;
+  background-color: rgb(222, 224, 221);
+  padding: 1.5rem;
+  height:fit-content;
+  grid-row: 2;
+  grid-column: 2;
 }
 
 app-orderList{
-    grid-column: 1;
+  grid-column: 1;
 }

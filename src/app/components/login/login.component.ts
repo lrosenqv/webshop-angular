@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { IUserLS } from 'src/app/models/IUserLS';
-import { LoginService } from './services/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   onlineUser: boolean = false;
   userOnline: IUserLS[] = [];
 
-  constructor(private service: LoginService) { 
+  constructor(private service: LoginService) {
   }
 
   ngOnInit(): void {

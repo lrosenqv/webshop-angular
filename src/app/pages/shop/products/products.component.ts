@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/models/ICategory';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -14,12 +14,12 @@ export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
   inCartProducts: IOrderRows[] = [];
   categories: ICategory[] = [];
-  
+
   constructor(private service: ProductService, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.service.products$.subscribe((dataFromService: IProduct[]) => { 
-      this.products = dataFromService; 
+    this.service.products$.subscribe((dataFromService: IProduct[]) => {
+      this.products = dataFromService;
     });
 
     this.service.productsToRender$.subscribe((products) => {
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
     this.storage.cache$.subscribe((dataFromLS) => {
       this.inCartProducts = dataFromLS;
     });
-    
+
     this.service.getProducts();
     this.service.getCategory();
     this.storage.getStorage('inCart');

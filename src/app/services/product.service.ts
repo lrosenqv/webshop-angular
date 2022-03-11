@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IOrderRows } from '../models/IOrderRows';
 import { IProduct } from '../models/IProduct';
 import { ICategory } from '../models/ICategory';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from './localStorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class ProductService {
     .get<IProduct[]>(environment.urlApi + 'products')
     .subscribe((dataFromApi) => {
       this.products.next(dataFromApi)
-      this.allProducts = dataFromApi;     
+      this.allProducts = dataFromApi;
       this.checkMatches(dataFromApi)
     });
   }

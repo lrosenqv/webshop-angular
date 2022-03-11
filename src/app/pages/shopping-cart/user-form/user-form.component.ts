@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-import { OrderService } from 'src/app/services/order.service'; 
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { OrderService } from 'src/app/services/order.service';
+import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
 import { IDBOrder } from 'src/app/models/IDBOrder';
 import { Order } from 'src/app/models/Order';
 import { IOrderRows } from 'src/app/models/IOrderRows';
@@ -52,7 +52,7 @@ export class UserFormComponent implements OnInit {
   createOrder(){
     let cart: IOrderRows[] = this.storage.loadStorage('inCart');
     let creator = this.userForm.value.firstname + " " + this.userForm.value.lastname;
-   
+
     this.order = new Order(
       this.userForm.value.companyId,
       this.userForm.value.created,

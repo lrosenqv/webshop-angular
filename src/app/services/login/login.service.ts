@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IUserLS } from 'src/app/models/IUserLS';
-import { IUser } from '../../../models/IUser';
+import { IUser } from 'src/app/models/IUser';
 
 @Injectable({
   providedIn: 'root'

@@ -1,78 +1,78 @@
 #userForm{
-    display: grid;
-    grid-template-columns: 1fr 2fr 0rem;
-    grid-template-rows: repeat(8, auto);
-    row-gap: 1rem;
-    column-gap: 1rem;
-    align-items: center;
-    position: relative;
+	display: grid;
+	grid-template-columns: 1fr 2fr 0rem;
+	grid-template-rows: repeat(8, auto);
+	row-gap: 1rem;
+	column-gap: 1rem;
+	align-items: center;
+	position: relative;
 
-    h3{
-        grid-area: 1 / 1 / span 1 / span 2;
-        margin:0;
-    }
+	h3{
+		grid-area: 1 / 1 / span 1 / span 2;
+		margin:0;
+	}
 
-    label{
-        grid-column: 1;
-        font-size: 0.8rem;
-    }
+	label{
+		grid-column: 1;
+		font-size: 0.8rem;
+	}
 
-    input{
-        grid-column: 2;
-        border: 1.5px solid rgb(113, 131, 109);
-        background-color: rgb(255, 255, 255);
-        color:rgb(72, 80, 71);
+	input{
+		grid-column: 2;
+		border: 1.5px solid rgb(113, 131, 109);
+		background-color: rgb(255, 255, 255);
+		color:rgb(72, 80, 71);
 
-        &::placeholder{
-            color:rgb(113, 131, 109);
-        }
+		&::placeholder{
+			color:rgb(113, 131, 109);
+		}
 
-        &:focus-visible{
-            outline:1px solid rgb(119, 155, 114);
-        }
-    }
+		&:focus-visible{
+			outline:1px solid rgb(119, 155, 114);
+		}
+	}
 
-    button{
-        grid-column:2;
-        height:2rem;
-        padding:0;
+	button{
+		grid-column:2;
+		height:2rem;
+		padding:0;
 
-        &:disabled{
-            background-color: rgb(85, 85, 85);
-            cursor:not-allowed;
-        }
-    }
+		&:disabled{
+			background-color: rgb(85, 85, 85);
+			cursor:not-allowed;
+		}
+	}
 
-    select{
-        color:rgb(72, 80, 71);
-        border: 1.5px solid rgb(113, 131, 109);
+	select{
+		color:rgb(72, 80, 71);
+		border: 1.5px solid rgb(113, 131, 109);
 
-        &:focus-visible{
-            outline:1px solid rgb(119, 155, 114);
-        }
-    }
+		&:focus-visible{
+			outline:1px solid rgb(119, 155, 114);
+		}
+	}
 
-    .ng-pristine{
-        color: rgb(113, 131, 109);
-    }
+	.ng-pristine{
+		color: rgb(113, 131, 109);
+	}
 
-    .ng-touched.ng-invalid{
-        border: 1.5px solid red;
-        color:red;
-    }
+	.ng-touched.ng-invalid{
+		border: 1.5px solid red;
+	  color:red;
+	}
 
-    .formErrorMsg{
-        color:red;
-        font-size: 0.6rem;
-        font-style: italic;
-        position: relative;
-        left: -4.5rem;
-        grid-column: 3;
-        text-align: right;
-        width:3rem;
-    }
+	.formErrorMsg{
+		color:red;
+		font-size: 0.6rem;
+		font-style: italic;
+		position: relative;
+		left: -4.5rem;
+		grid-column: 3;
+		text-align: right;
+		width:3rem;
+	}
 
-    #selectPlaceholder{
-        text-align: center;
-    }
+	#selectPlaceholder{
+		text-align: center;
+	}
 }

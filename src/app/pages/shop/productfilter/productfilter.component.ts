@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICategory } from 'src/app/models/ICategory'; 
+import { ICategory } from 'src/app/models/ICategory';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductfilterComponent implements OnInit {
   categories: ICategory[] = [];
   outputValue: number = 0;
- 
+
   renderThese: number[] = [];
 
   constructor(private service: ProductService) { }
@@ -21,10 +21,6 @@ export class ProductfilterComponent implements OnInit {
     })
 
     this.service.getCategory();
-  }
-
-  valueChange(val: number){
-    this.outputValue = val;
   }
 
   categoryCheck(el: HTMLInputElement, filterInput: number){

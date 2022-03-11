@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -14,12 +14,12 @@ export class OrderListComponent implements OnInit {
   allProducts: IProduct[] = [];
 
   productsToRender: IProduct[] = [];
-  
+
   constructor(private service: ProductService, private storage: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.service.products$.subscribe((dataFromService) => { 
-      this.allProducts = dataFromService; 
+    this.service.products$.subscribe((dataFromService) => {
+      this.allProducts = dataFromService;
     });
 
     this.storage.cache$.subscribe((dataFromLS) => {
@@ -37,7 +37,7 @@ export class OrderListComponent implements OnInit {
   removeFromCart(productIndex: number, productId: number){
     this.productsInCart.splice(productIndex,1)
     this.storage.setStorage(this.productsInCart, 'inCart')
-    
+
     this.productsToRender.findIndex((item, index) => {
       if(productId == item.id){
       this.productsToRender.splice(index, 1)

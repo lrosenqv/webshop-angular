@@ -1,28 +1,23 @@
 <aside>
-    <div>
-        <h2>Search</h2>
-        <input type="search" placeholder="Search product">
-        <button>Search</button>
-    </div>
+	<div>
+		<h2>Search</h2>
+		<input type="search" placeholder="Search product">
+		<button>Search</button>
+	</div>
 
-    <div>
-        <h2>Filter</h2>
-        <h3>Category</h3>
-        <ul>
-            <li *ngFor="let c of categories" #filters>
-                <label for="category">{{ c.name }}</label>
-                <input type="checkbox" class="filterInput" #filterCheck (click)="categoryCheck(filterCheck, c.id)">
-            </li>
-        </ul>
+	<div>
+		<h2>Filter</h2>
+		<h3>Category</h3>
+		<ul>
+			<li *ngFor="let c of categories" #filters>
+				<label for="category">{{ c.name }}</label>
+				<input type="checkbox" class="filterInput" #filterCheck (click)="categoryCheck(filterCheck, c.id)">
+			</li>
+		</ul>
 
-        <h3>Price</h3>
-        <form>
-            <label for="priceRange">PriceRange</label>
-            <input type="range" name="priceRange" #slider id="slider" (input)="valueChange(slider.valueAsNumber)" min="1" max="299" value="299">
-            <output id="rangeValue">{{ outputValue }}</output>
-        </form>
+		<h3>Price</h3>
 
-        <button id="resetFilter">Reset Filter</button>
-    </div>
+		<button id="resetFilter">Reset Filter</button>
+	</div>
 </aside>
 
