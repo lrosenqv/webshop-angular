@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
 import { ICategory } from 'src/app/models/ICategory';
 import { ProductService } from 'src/app/services/productService/product.service';
 
@@ -23,13 +23,6 @@ export class ProductfilterComponent implements OnInit {
   }
 
   categoryCheck(el: HTMLInputElement, filterInput: number){
-    document.querySelectorAll('input')
-      .forEach((input) => {
-        if(!input.checked){
-          this.service.filterProducts([5,6,7,8])
-        }
-      });
-
     if(el.checked){
       this.renderThese.push(filterInput);
     }
@@ -38,13 +31,16 @@ export class ProductfilterComponent implements OnInit {
       this.renderThese.findIndex((item, index) => {
         if(item === filterInput){
           this.renderThese.splice(index,1);
+          if(this.renderThese == null || []){
+            this.service.getProducts();
+          }
         }
       });
     }
     this.service.filterProducts(this.renderThese)
   }
-
   resetFilters(){
-    this.service.filterProducts([5,6,7,8])
+    this.renderThese = [];
+    this.service.getProducts();
   }
 }

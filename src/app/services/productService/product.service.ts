@@ -71,7 +71,10 @@ export class ProductService {
             toRender.push(product)
             this.productsToRender.next(toRender)
           }
-        })
+          if(render == null){
+            this.getProducts();
+          }
+        });
       });
     });
   }

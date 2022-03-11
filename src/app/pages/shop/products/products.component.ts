@@ -20,8 +20,6 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.service.products$.subscribe((dataFromService: IProduct[]) => {
       this.products = dataFromService;
-      console.log(dataFromService);
-
     });
 
     this.service.productsToRender$.subscribe((products) => {
