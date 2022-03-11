@@ -9,9 +9,9 @@
         <h2>Filter</h2>
         <h3>Category</h3>
         <ul>
-            <li *ngFor="let c of categories">
+            <li *ngFor="let c of categories" #filters>
                 <label for="category">{{ c.name }}</label>
-                <input type="checkbox" name="category">
+                <input type="checkbox" class="filterInput" #filterCheck (click)="categoryCheck(filterCheck, c.id)">
             </li>
         </ul>
 

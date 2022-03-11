@@ -1,19 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IOrderRows } from '../models/IOrderRows';
 import { IProduct } from '../models/IProduct';
 import { ICategory } from '../models/ICategory';
-import { IOrder } from '../models/IOrder';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private allProducts: IProduct[] = [];
   private products = new Subject<IProduct[]>();
   products$ = this.products.asObservable();
+
+  private productsToRender = new Subject<IProduct[]>();
+  productsToRender$ = this.productsToRender.asObservable();
 
   private inStorage = new Subject<IProduct[]>()
   inStorage$ = this.inStorage.asObservable();
@@ -30,7 +33,8 @@ export class ProductService {
     this.http
     .get<IProduct[]>(environment.urlApi + 'products')
     .subscribe((dataFromApi) => {
-      this.products.next(dataFromApi)      
+      this.products.next(dataFromApi)
+      this.allProducts = dataFromApi;     
       this.checkMatches(dataFromApi)
     });
   }
@@ -38,8 +42,8 @@ export class ProductService {
   getCategory(){
     this.http
     .get<ICategory[]>(environment.urlApi + 'categories')
-    .subscribe((categories) => {
-      this.categories.next(categories)
+    .subscribe((dataFromApi) => {
+      this.categories.next(dataFromApi)
     });
   }
 
@@ -57,4 +61,19 @@ export class ProductService {
   countTotal(products: IProduct[]){
     return products.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
   }
+
+  filterProducts(render: number[]){
+    let toRender: IProduct[] = [];
+    this.allProducts.filter((product) => {
+      product.productCategory.some((item) => {
+        render.map(catId => {
+          if(item.categoryId === catId){
+            toRender.push(product)
+            this.productsToRender.next(toRender)
+          }
+        })
+      });
+    });
+  }
 }
+

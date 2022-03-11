@@ -10,6 +10,8 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductfilterComponent implements OnInit {
   categories: ICategory[] = [];
   outputValue: number = 0;
+ 
+  renderThese: number[] = [];
 
   constructor(private service: ProductService) { }
 
@@ -23,5 +25,27 @@ export class ProductfilterComponent implements OnInit {
 
   valueChange(val: number){
     this.outputValue = val;
+  }
+
+  categoryCheck(el: HTMLInputElement, filterInput: number){
+    let allFilterInputs = document.querySelectorAll('input')
+      .forEach((input) => {
+        if(!input.checked){
+          this.service.getProducts();
+        }
+      });
+
+    if(el.checked){
+      this.renderThese.push(filterInput);
+    }
+
+    if(!el.checked){
+      this.renderThese.findIndex((item, index) => {
+        if(item === filterInput){
+          this.renderThese.splice(index,1);
+        }
+      });
+    }
+    this.service.filterProducts(this.renderThese)
   }
 }
