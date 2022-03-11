@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
-import { IOrder } from 'src/app/models/IOrder'; 
 import { Observable, Subject } from 'rxjs';
+import { IDBOrder } from '../models/IDBOrder';
+import { IOrder } from '../models/IOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +21,24 @@ export class OrderService {
     .get<IOrder[]>(environment.urlApi + 'orders')
     .subscribe((ordersFromDB) => {
       this.orders.next(ordersFromDB)
-      console.log(ordersFromDB);
       return ordersFromDB
     });
     return this.orders
   }
 
-  orderBuild(userDetails: IOrder): Observable<any>{
+  placeOrder(userForm: IOrder): Observable<any> {
     let cart: IOrderRows[] = this.storage.loadStorage('inCart');
-    cart.forEach((product) => {
-      userDetails.orderRows.push(product);
+    cart.forEach((item) => {
+      userForm.orderRows.push(item)
     });
 
-    const headers = {'content-type': 'application/json'}
-    const body = JSON.stringify(userDetails)
+    const headers = {'content-type': 'application/json'};
+    const body = JSON.stringify(userForm);
     
-    this.storage.removeStorage('inCart')
     return this.http.post(environment.urlApi + 'orders', body, {'headers': headers});
+  }
+
+  removeOrder(idToRemove: number){
+    return this.http.delete(environment.urlApi + 'orders/' + idToRemove);
   }
 }

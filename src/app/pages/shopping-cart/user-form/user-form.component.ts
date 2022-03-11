@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { IOrder } from 'src/app/models/IOrder'; 
 import { OrderService } from 'src/app/services/order.service'; 
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { IDBOrder } from 'src/app/models/IDBOrder';
 
 
 @Component({
@@ -14,22 +16,24 @@ export class UserFormComponent implements OnInit {
   newDate: Date = new Date();
   totalPrice: number = 0;
   newOrderId: number = 0;
+  dataFromDB: IOrder[] =[];
+  newOrder1: any;
 
   userForm = this.fb.group({
     companyId: ['', [Validators.required]],
     created: this.newDate.toISOString().slice(0,-5),
-    firstname: ['', [Validators.required]],
+    firstname: ['', [Validators.required, Validators.minLength(2)]],
     lastname: [''],
-    payment: ['', [Validators.required]],
+    paymentMethod: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private service: OrderService, private prodService: ProductService) { }
+  constructor(private fb: FormBuilder, private service: OrderService, private prodService: ProductService, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.prodService.totalPrice$.subscribe((valueFromService)=>{
       this.totalPrice = valueFromService;
     });
-    this.refresh();
+    this.refreshOrders()
   }
 
   get companyId(){
@@ -37,19 +41,52 @@ export class UserFormComponent implements OnInit {
   }
 
   get firstname(){
-    return this.userForm.get('firstname')
+    return this.userForm.get('name')
   }
 
-  get payment(){
-    return this.userForm.get('payment')
+  get paymentMethod(){
+    return this.userForm.get('paymentMethod')
   }
 
-  refresh(){
+  refreshOrders(){
     this.service.getOrdersDB().subscribe((data) => {
+      this.dataFromDB = data;
+      console.log(data);
+      
+    });
+    this.service.getOrdersDB();
+  }
+
+  handleForm(form: FormGroup){
+    let newOrder: IOrder = {
+      companyId: form.value.companyId,
+      created: form.value.created,
+      createdBy: form.value.firstname + ' ' + form.value.lastname,
+      paymentMethod: form.value.paymentMethod,
+      totalPrice: this.totalPrice,
+      orderRows: []
+    }
+
+    this.service.placeOrder(newOrder)
+    .subscribe((data)=>{     
+      console.log(data);
+       
+      this.refreshOrders();
     });
   }
 
-  handleChange(form: FormGroup){
+  /*handleOrder(form: FormData){
+    this.service.placeOrder(form)
+    .subscribe(order => {
+      console.log(order)
+      this.service.getOrdersDB();
+    });
+    
+    this.service.placeOrder(form).subscribe(order => {
+      console.log(order);
+    });
+    this.refreshOrders();*/
+    /*
     let newOrder: IOrder = {
       companyId: form.value.companyId,
       created: form.value.created,
@@ -59,9 +96,12 @@ export class UserFormComponent implements OnInit {
       orderRows: []
     }
 
+    /*
     this.service.orderBuild(newOrder)
-    .subscribe((data)=>{
-      this.refresh();
+    .subscribe((data) => {
+      console.log(data);
+      this.refreshOrders();
     });
-  }
+    this.storage.removeStorage('inCart')
+  } */
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { IOrder } from 'src/app/models/IOrder'; 
 import { faBriefcase, faBars, faChartArea, faAddressCard, faEnvelope, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 import { OrderService } from 'src/app/services/order.service'; 
+import { IDBOrder } from 'src/app/models/IDBOrder';
 
 @Component({
   selector: 'app-admin',
@@ -20,16 +20,23 @@ export class AdminComponent implements OnInit {
   isAdmin: boolean = false;
   orders: IOrder[] = [];
 
-  constructor(private storage: LocalStorageService, private service: OrderService) {}
+  constructor(private service: OrderService) {}
 
   ngOnInit(): void {
-    this.refreshOrderList();
+    this.refreshList();
   }
 
-  refreshOrderList(){
-    this.service.orders$
-    .subscribe((data) => {
-      this.orders = data;
+  refreshList(){
+    this.service.orders$.subscribe((ordersFromDb) => {
+      this.orders = ordersFromDb;
     });
+    this.service.getOrdersDB();
+  }
+
+  removeOrder(idToRemove: number){
+    this.service.removeOrder(idToRemove).subscribe((data) => {
+      console.log(data)
+    });
+    this.refreshList()
   }
 }

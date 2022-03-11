@@ -1,19 +1,19 @@
-<form id="userForm" [formGroup]="userForm" (submit)="handleChange(userForm)" enctype="multipart/form-data">
+<form id="userForm" [formGroup]="userForm" (submit)="handleForm(userForm)" enctype="multipart/form-data">
     <h3>Your Information</h3>
 
     <label>Company ID</label>
     <input type="number" formControlName="companyId" placeholder="1234"> 
     <div *ngIf="companyId?.touched&&companyId?.invalid" class="formErrorMsg">Mandatory</div>
 
-    <label>Firstname</label>
-    <input type="text" formControlName="firstname" placeholder="John" name="firstName">
+    <label>Firstame</label>
+    <input type="text" formControlName="firstname" placeholder="John Doe">
     <div *ngIf="firstname?.touched&&firstname?.invalid" class="formErrorMsg">Mandatory</div>
 
     <label>Lastname</label>
     <input type="text" formControlName="lastname" placeholder="Doe">
 
     <label>Payment</label>
-    <select formControlName="payment">
+    <select formControlName="paymentMethod">
         <option value="" id="selectPlaceholder">-- Choose payment method --</option>
         <option>Klarna</option>
         <option>MasterCard</option>

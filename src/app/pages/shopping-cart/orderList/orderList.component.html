@@ -4,7 +4,6 @@
             <img [src]="p.imageUrl" class="cartImg">
             <h3>{{ p.name }}</h3>
             <p>{{ p.price | currency:'SEK' }}</p>
-            <!--<button (click)="removeFromCart(i, p)">Delete</button>-->
             <button (click)="removeFromCart(i, p.id)">Delete</button>
          </li>
      </ul>

@@ -28,7 +28,6 @@ export class OrderListComponent implements OnInit {
 
     this.service.inStorage$.subscribe((matchedDataFrService) => {
       this.productsToRender = matchedDataFrService;
-      console.log(this.productsToRender);
     });
 
     this.service.getProducts();
