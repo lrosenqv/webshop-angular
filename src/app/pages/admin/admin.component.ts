@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   faChartLine = faChartArea;
 
   isAdmin: boolean = false;
-  orders: IOrder[] = [];
+  orders: IDBOrder[] = [];
 
   constructor(private service: OrderService) {}
 

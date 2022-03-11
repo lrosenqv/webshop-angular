@@ -1,41 +1,34 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject } from 'rxjs';
 import { IDBOrder } from '../models/IDBOrder';
-import { IOrder } from '../models/IOrder';
+import { Order } from '../models/Order';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private orders = new Subject<IOrder[]>();
+  private orders = new Subject<IDBOrder[]>();
   orders$ = this.orders.asObservable();
 
   constructor(private http: HttpClient, private storage: LocalStorageService) { }
 
-  getOrdersDB(): Observable<IOrder[]>{
+  getOrdersDB(){
     this.http
-    .get<IOrder[]>(environment.urlApi + 'orders')
+    .get<IDBOrder[]>(environment.urlApi + 'orders?CompanyId=38')
     .subscribe((ordersFromDB) => {
       this.orders.next(ordersFromDB)
-      return ordersFromDB
     });
-    return this.orders
   }
 
-  placeOrder(userForm: IOrder): Observable<any> {
-    let cart: IOrderRows[] = this.storage.loadStorage('inCart');
-    cart.forEach((item) => {
-      userForm.orderRows.push(item)
-    });
-
-    const headers = {'content-type': 'application/json'};
-    const body = JSON.stringify(userForm);
-    
-    return this.http.post(environment.urlApi + 'orders', body, {'headers': headers});
+  placeOrder(orderToAdd: Order): Observable<any>{
+    const headers = {'Content-type':'application/json'}
+    const orderString = JSON.stringify(orderToAdd)
+    return this.http.post<string>(environment.urlApi + 'orders', orderString, {'headers': headers});
   }
 
   removeOrder(idToRemove: number){

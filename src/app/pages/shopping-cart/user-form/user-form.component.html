@@ -1,8 +1,8 @@
-<form id="userForm" [formGroup]="userForm" (submit)="handleForm(userForm)" enctype="multipart/form-data">
+<form id="userForm" [formGroup]="userForm" (submit)="handleForm()" enctype="multipart/form-data">
     <h3>Your Information</h3>
 
     <label>Company ID</label>
-    <input type="number" formControlName="companyId" placeholder="1234"> 
+    <input type="number" formControlName="companyId" placeholder="123"> 
     <div *ngIf="companyId?.touched&&companyId?.invalid" class="formErrorMsg">Mandatory</div>
 
     <label>Firstame</label>

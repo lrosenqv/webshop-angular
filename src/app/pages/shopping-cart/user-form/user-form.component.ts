@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-import { IOrder } from 'src/app/models/IOrder'; 
 import { OrderService } from 'src/app/services/order.service'; 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { IDBOrder } from 'src/app/models/IDBOrder';
+import { Order } from 'src/app/models/Order';
+import { IOrderRows } from 'src/app/models/IOrderRows';
 
 
 @Component({
@@ -13,15 +14,15 @@ import { IDBOrder } from 'src/app/models/IDBOrder';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  newDate: Date = new Date();
   totalPrice: number = 0;
-  newOrderId: number = 0;
-  dataFromDB: IOrder[] =[];
-  newOrder1: any;
+  dataFromDB: IDBOrder[] =[];
+  order: Order = new Order(0, '', '', '', 0, [])
+
+  orderAccepted: boolean = false;
 
   userForm = this.fb.group({
     companyId: ['', [Validators.required]],
-    created: this.newDate.toISOString().slice(0,-5),
+    created: new Date().toISOString().slice(0,-5),
     firstname: ['', [Validators.required, Validators.minLength(2)]],
     lastname: [''],
     paymentMethod: ['', [Validators.required]],
@@ -33,7 +34,7 @@ export class UserFormComponent implements OnInit {
     this.prodService.totalPrice$.subscribe((valueFromService)=>{
       this.totalPrice = valueFromService;
     });
-    this.refreshOrders()
+    this.service.getOrdersDB();
   }
 
   get companyId(){
@@ -48,60 +49,30 @@ export class UserFormComponent implements OnInit {
     return this.userForm.get('paymentMethod')
   }
 
-  refreshOrders(){
-    this.service.getOrdersDB().subscribe((data) => {
-      this.dataFromDB = data;
-      console.log(data);
-      
-    });
-    this.service.getOrdersDB();
+  createOrder(){
+    let cart: IOrderRows[] = this.storage.loadStorage('inCart');
+    let creator = this.userForm.value.firstname + " " + this.userForm.value.lastname;
+   
+    this.order = new Order(
+      this.userForm.value.companyId,
+      this.userForm.value.created,
+      creator,
+      this.userForm.value.paymentMethod,
+      this.totalPrice,
+      cart
+    )
+    return this.order
   }
 
-  handleForm(form: FormGroup){
-    let newOrder: IOrder = {
-      companyId: form.value.companyId,
-      created: form.value.created,
-      createdBy: form.value.firstname + ' ' + form.value.lastname,
-      paymentMethod: form.value.paymentMethod,
-      totalPrice: this.totalPrice,
-      orderRows: []
-    }
-
+  handleForm(){
+    let newOrder = this.createOrder();
     this.service.placeOrder(newOrder)
-    .subscribe((data)=>{     
-      console.log(data);
-       
-      this.refreshOrders();
+      .subscribe((resp) => {
+        console.log("Ordered!", resp);
+        this.service.getOrdersDB();
     });
-  }
-
-  /*handleOrder(form: FormData){
-    this.service.placeOrder(form)
-    .subscribe(order => {
-      console.log(order)
-      this.service.getOrdersDB();
-    });
-    
-    this.service.placeOrder(form).subscribe(order => {
-      console.log(order);
-    });
-    this.refreshOrders();*/
-    /*
-    let newOrder: IOrder = {
-      companyId: form.value.companyId,
-      created: form.value.created,
-      createdBy: form.value.firstname + ' ' + form.value.lastname,
-      paymentMethod: form.value.payment,
-      totalPrice: this.totalPrice,
-      orderRows: []
-    }
-
-    /*
-    this.service.orderBuild(newOrder)
-    .subscribe((data) => {
-      console.log(data);
-      this.refreshOrders();
-    });
+    this.orderAccepted = true;
+    this.userForm.reset();
     this.storage.removeStorage('inCart')
-  } */
+  }
 }
