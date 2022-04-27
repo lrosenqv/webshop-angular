@@ -27,6 +27,10 @@ export class ProductService {
   private categories = new Subject<ICategory[]>();
   categories$ = this.categories.asObservable();
 
+  private searched: IProduct[] = [];
+  private filtered: IProduct[] = [];
+  private matchedProd: IProduct[] = [];
+
   constructor(private http: HttpClient, private storage: LocalStorageService) {}
 
   getProducts(){
@@ -62,21 +66,78 @@ export class ProductService {
     return products.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
   }
 
-  filterProducts(render: number[]){
+  searchProduct(searchText: string){
+    let searchRender: IProduct[] = [];
+    this.http.get<IProduct[]>(environment.searchApi + searchText)
+    .subscribe(dataFromApi => {
+      this.searched = dataFromApi;
+    })
+
+
+
+    if(searchText.length >= 1){
+      this.searchProduct(searchText)
+      let f = this.filtered.filter((fRend) => {
+        return this.searched.some((s) => {
+          return fRend.id === s.id
+        })
+      })
+      searchRender = f;
+      this.productsToRender.next(this.matchedProd)
+    } else {
+      this.productsToRender.next(this.filtered)
+    }
+  }
+
+  filterProducts(categories: number[]){
+    let filterRender: IProduct[] = [];
+
+    if(categories.length <= 0){
+      this.matchedProd = this.allProducts
+    } else {
+      this.allProducts.filter((match) => {
+        return !categories.some((c) => {
+          match.productCategory.forEach(m => {
+            if(m.categoryId === c){
+              filterRender.push(match)
+            }
+          })
+        })
+      })
+    this.filtered = [...new Set(filterRender.map(t => t))]
+    }
+
+    /*if(text.length >= 1){
+      this.searchProduct(text)
+      let f = filterRender.filter((fRend) => {
+        return this.searched.some((s) => {
+          return fRend.id === s.id
+        })
+      })
+      searchRender = f;
+      this.productsToRender.next(this.matchedProd)
+    } else {
+      this.productsToRender.next(filterRender)
+    }*/
+  }
+
+  /*filterProducts(categories: number[], text: string){
     let toRender: IProduct[] = [];
     this.allProducts.filter((product) => {
       product.productCategory.some((item) => {
-        render.map(catId => {
+        categories.map(catId => {
           if(item.categoryId === catId){
             toRender.push(product)
+            console.log(toRender);
+
             this.productsToRender.next(toRender)
           }
-          if(render == null){
+          if(categories == null){
             this.getProducts();
           }
         });
       });
     });
-  }
+  }*/
 }
 

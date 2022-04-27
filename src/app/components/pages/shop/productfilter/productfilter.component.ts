@@ -1,5 +1,7 @@
-import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ICategory } from 'src/app/models/ICategory';
+import { IProduct } from 'src/app/models/IProduct';
 import { ProductService } from 'src/app/services/productService/product.service';
 
 @Component({
@@ -9,11 +11,25 @@ import { ProductService } from 'src/app/services/productService/product.service'
 })
 export class ProductfilterComponent implements OnInit {
   categories: ICategory[] = [];
-  outputValue: number = 0;
+  filter: number[] = [];
+  search: string = "";
+  searchForm: FormGroup;
 
-  renderThese: number[] = [];
+  /*searchForm = this.fb.group({
+    searchText: "",
+    catgoryList: [
+      { id: 5, name: "Action" },
+      { id: 6, name: "Thriller" },
+      { id: 7, name: "Comedy" },
+      { id: 8, name: "Sci-Fi" },
+    ]
+  })*/
 
-  constructor(private service: ProductService) { }
+  constructor(private service: ProductService, private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      searchText: "",
+    })
+   }
 
   ngOnInit(): void {
     this.service.categories$.subscribe((dataFromApi) =>{
@@ -22,25 +38,36 @@ export class ProductfilterComponent implements OnInit {
     this.service.getCategory();
   }
 
-  categoryCheck(el: HTMLInputElement, filterInput: number){
-    if(el.checked){
-      this.renderThese.push(filterInput);
+  categoryCheck(e: HTMLInputElement, id: number){
+    if(e.checked){
+      this.filter.push(id)
     }
 
-    if(!el.checked){
-      this.renderThese.findIndex((item, index) => {
-        if(item === filterInput){
-          this.renderThese.splice(index,1);
-          if(this.renderThese == null || []){
-            this.service.getProducts();
+    if(!e.checked){
+      this.filter.findIndex((item, index) => {
+        if(item === id){
+          this.filter.splice(index,1);
+
+          if(this.filter == null || []){
+            this.service.getProducts()
           }
         }
       });
     }
-    this.service.filterProducts(this.renderThese)
+    this.service.filterProducts(this.filter)
   }
+
   resetFilters(){
-    this.renderThese = [];
+    this.filter = [];
     this.service.getProducts();
+  }
+
+  searchProductsInput(searchText: string){
+    if(searchText.length > 1){
+      this.search = searchText;
+      this.service.searchProduct(searchText)
+    } else {
+      this.service.getCategory()
+    }
   }
 }
