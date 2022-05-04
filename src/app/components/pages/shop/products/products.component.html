@@ -5,6 +5,7 @@
 
 		<div class="productDetails">
 			<span>{{ p.year }}</span>
+			<p *ngFor="let c of p.productCategory">| {{ c.category }}</p>
 			<p>{{ p.description }}</p>
 		</div>
 

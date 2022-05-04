@@ -11,6 +11,7 @@ button{
     border:none;
     padding:0.7rem;
     cursor: pointer;
+    transition: all 0.4s;
 
     &:hover{
         background-color:rgb(72, 80, 71);

@@ -13,7 +13,7 @@ import { ProductService } from 'src/app/services/productService/product.service'
 export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
   inCartProducts: IOrderRows[] = [];
-  categories: ICategory[] = [];
+  public categories: ICategory[] = [];
 
   constructor(private service: ProductService, private storage: LocalStorageService) { }
 
@@ -28,6 +28,19 @@ export class ProductsComponent implements OnInit {
 
     this.service.categories$.subscribe((dataFromService) => {
       this.categories = dataFromService;
+      this.products.forEach(product => {
+        product.productCategory.map((pr) => {
+          if(pr.categoryId === 5){
+            pr.category = "Action"
+          } else if(pr.categoryId === 6){
+            pr.category = "Thriller"
+          } else if(pr.categoryId === 7){
+            pr.category = "Comedy"
+          } else {
+            pr.category = "Sci-fi"
+          }
+        })
+      })
     });
 
     this.storage.cache$.subscribe((dataFromLS) => {
