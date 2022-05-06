@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
@@ -40,6 +40,7 @@ export class ProductService {
       this.products.next(dataFromApi)
       this.allProducts = dataFromApi;
       this.checkMatches(dataFromApi)
+      this.productsToRender.next(dataFromApi)
     });
   }
 
@@ -66,34 +67,46 @@ export class ProductService {
     return products.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
   }
 
-  searchProduct(searchText: string){
-    let searchRender: IProduct[] = [];
-    this.http.get<IProduct[]>(environment.searchApi + searchText)
-    .subscribe(dataFromApi => {
-      this.searched = dataFromApi;
-    })
 
+  filterSearchMatch(){
+    let filteredArray: IProduct[];
 
-
-    if(searchText.length >= 1){
-      this.searchProduct(searchText)
-      let f = this.filtered.filter((fRend) => {
-        return this.searched.some((s) => {
-          return fRend.id === s.id
-        })
-      })
-      searchRender = f;
-      this.productsToRender.next(this.matchedProd)
+    if(this.filtered.length === 0){
+      filteredArray = this.allProducts;
     } else {
-      this.productsToRender.next(this.filtered)
+      filteredArray = this.filtered;
     }
+
+    let result = filteredArray.filter((filter) => {
+      return this.searched.some((search) => {
+        return filter.id === search.id
+      })
+    })
+    this.productsToRender.next(result)
+
+    console.log("result",result);
+    console.log("search",this.searched);
+    console.log("filtered", this.filtered);
+  }
+
+  searchProduct(searchText: string){
+    this.http.get<IProduct[]>(environment.searchApi + searchText)
+    .subscribe((dataFromApi) => {
+      this.searched = dataFromApi;
+
+      if(this.filtered.length === 0){
+        this.productsToRender.next(dataFromApi)
+      } else {
+        this.filterSearchMatch()
+      }
+    })
   }
 
   filterProducts(categories: number[]){
     let filterRender: IProduct[] = [];
 
-    if(categories.length <= 0){
-      this.matchedProd = this.allProducts
+    if(categories.length === 0){
+      this.filtered = this.allProducts;
     } else {
       this.allProducts.filter((match) => {
         return !categories.some((c) => {
@@ -104,40 +117,14 @@ export class ProductService {
           })
         })
       })
-    this.filtered = [...new Set(filterRender.map(t => t))]
     }
+    this.filtered = [...new Set(filterRender.map(t => t))]
 
-    /*if(text.length >= 1){
-      this.searchProduct(text)
-      let f = filterRender.filter((fRend) => {
-        return this.searched.some((s) => {
-          return fRend.id === s.id
-        })
-      })
-      searchRender = f;
-      this.productsToRender.next(this.matchedProd)
+    if(this.searched.length === 0){
+      this.productsToRender.next(this.filtered)
     } else {
-      this.productsToRender.next(filterRender)
-    }*/
+      this.filterSearchMatch()
+    }
   }
-
-  /*filterProducts(categories: number[], text: string){
-    let toRender: IProduct[] = [];
-    this.allProducts.filter((product) => {
-      product.productCategory.some((item) => {
-        categories.map(catId => {
-          if(item.categoryId === catId){
-            toRender.push(product)
-            console.log(toRender);
-
-            this.productsToRender.next(toRender)
-          }
-          if(categories == null){
-            this.getProducts();
-          }
-        });
-      });
-    });
-  }*/
 }
 

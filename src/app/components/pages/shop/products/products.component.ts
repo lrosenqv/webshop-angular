@@ -18,9 +18,9 @@ export class ProductsComponent implements OnInit {
   constructor(private service: ProductService, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.service.products$.subscribe((dataFromService: IProduct[]) => {
+    /*this.service.products$.subscribe((dataFromService: IProduct[]) => {
       this.products = dataFromService;
-    });
+    });*/
 
     this.service.productsToRender$.subscribe((products) => {
       this.products = products;

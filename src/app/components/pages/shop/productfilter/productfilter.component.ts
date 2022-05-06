@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ICategory } from 'src/app/models/ICategory';
-import { IProduct } from 'src/app/models/IProduct';
 import { ProductService } from 'src/app/services/productService/product.service';
 
 @Component({
@@ -12,28 +11,17 @@ import { ProductService } from 'src/app/services/productService/product.service'
 export class ProductfilterComponent implements OnInit {
   categories: ICategory[] = [];
   filter: number[] = [];
-  search: string = "";
-  searchForm: FormGroup;
+  searchString: string = "";
 
-  /*searchForm = this.fb.group({
+  searchForm = this.fb.group({
     searchText: "",
-    catgoryList: [
-      { id: 5, name: "Action" },
-      { id: 6, name: "Thriller" },
-      { id: 7, name: "Comedy" },
-      { id: 8, name: "Sci-Fi" },
-    ]
-  })*/
+  })
 
-  constructor(private service: ProductService, private fb: FormBuilder) {
-    this.searchForm = this.fb.group({
-      searchText: "",
-    })
-   }
+  constructor(private service: ProductService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.service.categories$.subscribe((dataFromApi) =>{
-      this.categories = dataFromApi
+      this.categories = dataFromApi;
     })
     this.service.getCategory();
   }
@@ -48,8 +36,10 @@ export class ProductfilterComponent implements OnInit {
         if(item === id){
           this.filter.splice(index,1);
 
-          if(this.filter == null || []){
-            this.service.getProducts()
+          if(this.filter.length === 0 && this.searchString.length >= 2){
+            this.service.searchProduct(this.searchString)
+          } else if(this.filter.length === 0 && this.searchString.length <= 1){
+            this.service.getProducts();
           }
         }
       });
@@ -63,11 +53,11 @@ export class ProductfilterComponent implements OnInit {
   }
 
   searchProductsInput(searchText: string){
-    if(searchText.length > 1){
-      this.search = searchText;
+    this.searchString = searchText;
+    if(searchText.length >= 2){
       this.service.searchProduct(searchText)
     } else {
-      this.service.getCategory()
+      this.service.filterProducts(this.filter);
     }
   }
 }

@@ -3,15 +3,13 @@
 		<form [formGroup]="searchForm" >
 			<div class="searchDiv">
 				<input type="text" class="searchInput" placeholder="Search product" #searchText formControlName="searchText" (ngModelChange)="searchProductsInput($event)">
-				<button id="searchButton">Search</button>
 			</div>
-
 
 			<div *ngFor="let c of categories" #filters class="filterDiv">
 				<label for="filterCheck">{{ c.name }}</label>
 				<input type="checkbox" class="filterInput" #filterCheck [value]="c.id" (change)="categoryCheck(filterCheck, c.id)">
 			</div>
 		</form>
-		<button id="resetFilter" (click)="resetFilters()" class="resetBtn">Reset Filter</button>
+		<button id="resetFilter" type="reset" class="resetBtn">Reset Filter</button>
 </aside>
 
