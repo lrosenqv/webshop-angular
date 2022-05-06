@@ -1,10 +1,12 @@
 <section>
 	<app-productfilter></app-productfilter>
+	<div *ngIf="products.length === 0">...No results :(</div>
 	<div *ngFor="let p of products" [id]="p.id" class="productOverview" name="productO">
 		<img [src]="p.imageUrl" class="productImg">
 
 		<div class="productDetails">
 			<span>{{ p.year }}</span>
+			<p *ngFor="let c of p.productCategory">| {{ c.category }}</p>
 			<p>{{ p.description }}</p>
 		</div>
 

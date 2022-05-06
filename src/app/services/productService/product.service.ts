@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
@@ -27,6 +27,10 @@ export class ProductService {
   private categories = new Subject<ICategory[]>();
   categories$ = this.categories.asObservable();
 
+  private searched: IProduct[] = [];
+  private filtered: IProduct[] = [];
+  private matchedProd: IProduct[] = [];
+
   constructor(private http: HttpClient, private storage: LocalStorageService) {}
 
   getProducts(){
@@ -36,6 +40,7 @@ export class ProductService {
       this.products.next(dataFromApi)
       this.allProducts = dataFromApi;
       this.checkMatches(dataFromApi)
+      this.productsToRender.next(dataFromApi)
     });
   }
 
@@ -62,21 +67,64 @@ export class ProductService {
     return products.reduce(( previousValue, currentValue ) => previousValue + currentValue.price, 0)
   }
 
-  filterProducts(render: number[]){
-    let toRender: IProduct[] = [];
-    this.allProducts.filter((product) => {
-      product.productCategory.some((item) => {
-        render.map(catId => {
-          if(item.categoryId === catId){
-            toRender.push(product)
-            this.productsToRender.next(toRender)
-          }
-          if(render == null){
-            this.getProducts();
-          }
-        });
-      });
-    });
+
+  filterSearchMatch(){
+    let filteredArray: IProduct[];
+
+    if(this.filtered.length === 0){
+      filteredArray = this.allProducts;
+    } else {
+      filteredArray = this.filtered;
+    }
+
+    let result = filteredArray.filter((filter) => {
+      return this.searched.some((search) => {
+        return filter.id === search.id
+      })
+    })
+    this.productsToRender.next(result)
+
+    console.log("result",result);
+    console.log("search",this.searched);
+    console.log("filtered", this.filtered);
+  }
+
+  searchProduct(searchText: string){
+    this.http.get<IProduct[]>(environment.searchApi + searchText)
+    .subscribe((dataFromApi) => {
+      this.searched = dataFromApi;
+
+      if(this.filtered.length === 0){
+        this.productsToRender.next(dataFromApi)
+      } else {
+        this.filterSearchMatch()
+      }
+    })
+  }
+
+  filterProducts(categories: number[]){
+    let filterRender: IProduct[] = [];
+
+    if(categories.length === 0){
+      this.filtered = this.allProducts;
+    } else {
+      this.allProducts.filter((match) => {
+        return !categories.some((c) => {
+          match.productCategory.forEach(m => {
+            if(m.categoryId === c){
+              filterRender.push(match)
+            }
+          })
+        })
+      })
+    }
+    this.filtered = [...new Set(filterRender.map(t => t))]
+
+    if(this.searched.length === 0){
+      this.productsToRender.next(this.filtered)
+    } else {
+      this.filterSearchMatch()
+    }
   }
 }
 

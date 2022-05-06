@@ -1,14 +1,15 @@
 <aside>
-	<div>
 		<h2>Filter</h2>
-		<ul>
-			<li *ngFor="let c of categories" #filters>
-				<label for="category">{{ c.name }}</label>
-				<input type="checkbox" class="filterInput" #filterCheck (click)="categoryCheck(filterCheck, c.id)">
-			</li>
-		</ul>
+		<form [formGroup]="searchForm" >
+			<div class="searchDiv">
+				<input type="text" class="searchInput" placeholder="Search product" #searchText formControlName="searchText" (ngModelChange)="searchProductsInput($event)">
+			</div>
 
-		<button id="resetFilter" (click)="resetFilters()">Reset Filter</button>
-	</div>
+			<div *ngFor="let c of categories" #filters class="filterDiv">
+				<label for="filterCheck">{{ c.name }}</label>
+				<input type="checkbox" class="filterInput" #filterCheck [value]="c.id" (change)="categoryCheck(filterCheck, c.id)">
+			</div>
+		</form>
+		<button id="resetFilter" type="reset" class="resetBtn">Reset Filter</button>
 </aside>
 

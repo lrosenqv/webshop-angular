@@ -18,13 +18,18 @@ div{
 }
 
 button{
-  background-color: rgb(91, 109, 100);
-  position:absolute;
+  //background-color: rgb(91, 109, 100);
+  background-color: rgb(103, 91, 109);
   margin-top: 20rem;
   align-self: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  position:fixed;
+  padding: 2rem;
+  border-radius: 4rem 4rem;
+  transition: all 0.4s;
 
   &:hover{
-    background-color: rgb(77, 92, 84);
+    //background-color: rgb(77, 92, 84);
+    background-color: rgb(143, 127, 151);
   }
 }

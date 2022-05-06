@@ -6,6 +6,7 @@ export const environment = {
   production: false,
 
   urlApi: 'https://medieinstitutet-wie-products.azurewebsites.net/api/',
+  searchApi: 'https://medieinstitutet-wie-products.azurewebsites.net/api/search?searchText='
 };
 
 /*

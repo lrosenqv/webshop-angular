@@ -1,70 +1,62 @@
-button{
-  padding:0.2rem 0.4rem;
-  margin:0.2rem;
-
-  &:first-of-type{
-    width: 6rem;
-    align-self: flex-end;
-  }
-}
-
-h2{
-  margin:0;
-  color:rgb(87, 97, 85);
-  font-size: 1.5rem;
-
-  &:last-of-type{
-    margin-bottom:0.5rem;
-  }
-}
-
-div{
+aside{
   background-color: rgb(222, 224, 221);
-  box-sizing: border-box;
-  display: flex;
+  padding: 0.5rem 1.2rem 2rem;
+  color:rgb(113, 131, 109);
+  display:flex;
   flex-direction: column;
-  row-gap: 0.8rem;
 
-  &:first-child{
-    padding:2.7rem 1.2rem 1rem;
+  h2{
+    margin:1.5rem 0 2rem;
+    color:rgb(87, 97, 85);
+    font-size: 1.5rem;
   }
 
-  &:last-child{
-    padding: 0.5rem 1.2rem 2rem;
-  }
-
-  ul{
-    list-style-type: none;
-    padding:0;
-    margin:0;
-    display: flex;
+  form{
+    display:flex;
     flex-direction: column;
-    row-gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
 
-    li{
-      display: flex;
+    .searchDiv{
       flex-direction: row;
-      color:rgb(113, 131, 109);
+      width:100%;
 
-      label{
-        order:1;
+      .searchInput{
+        height: 1.5rem;
+        margin-bottom: 1rem;
+        width: 100%;
       }
 
-      input{
-        order:0;
-        cursor: pointer;
-        }
+      #searchButton{
+        font-size: 0.8rem;
+        margin: 0 0 1rem;
+        padding: 0.5rem;
+        width:30%;
+        box-sizing: border-box;
       }
     }
 
-  button{
-    font-size: 1.1rem;
-    margin-top:1.5rem;
-    padding:0.5rem;
-    align-self: center;
-    width:8rem;
+    .filterDiv{
+      flex-direction:row-reverse;
+      justify-content: left;
+
+      .filterInput{
+        cursor:pointer;
+      }
+    }
+
+    div{
+      display:flex;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .resetBtn{
+    font-size: 1rem;
+    margin-top: 0.5rem;
   }
 }
+
 
 
 
