@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../localStorageService/local-storage.service';
-import { environment } from 'src/environments/environment';
 import { Observable, Subject } from 'rxjs';
 import { IDBOrder } from 'src/app/models/IDBOrder';
 import { Order } from 'src/app/models/Order';
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class OrderService {
+  private urlApi: string = 'https://medieinstitutet-wie-products.azurewebsites.net/api/';
   private orders = new Subject<IDBOrder[]>();
   orders$ = this.orders.asObservable();
 
@@ -18,7 +18,7 @@ export class OrderService {
 
   getOrdersDB(){
     this.http
-    .get<IDBOrder[]>(environment.urlApi + 'orders?CompanyId=38')
+    .get<IDBOrder[]>(this.urlApi + 'orders?CompanyId=38')
     .subscribe((ordersFromDB) => {
       this.orders.next(ordersFromDB)
     });
@@ -27,10 +27,10 @@ export class OrderService {
   placeOrder(orderToAdd: Order): Observable<any>{
     const headers = {'Content-type':'application/json'}
     const orderString = JSON.stringify(orderToAdd)
-    return this.http.post<string>(environment.urlApi + 'orders', orderString, {'headers': headers});
+    return this.http.post<string>(this.urlApi + 'orders', orderString, {'headers': headers});
   }
 
   removeOrder(idToRemove: number){
-    return this.http.delete(environment.urlApi + 'orders/' + idToRemove);
+    return this.http.delete(this.urlApi + 'orders/' + idToRemove);
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 import { IOrderRows } from 'src/app/models/IOrderRows';
 import { IProduct } from 'src/app/models/IProduct';
 import { ICategory } from 'src/app/models/ICategory';
@@ -10,7 +9,11 @@ import { LocalStorageService } from '../localStorageService/local-storage.servic
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
+  private urlApi: string = 'https://medieinstitutet-wie-products.azurewebsites.net/api/';
+  private searchApi: string = 'https://medieinstitutet-wie-products.azurewebsites.net/api/search?searchText=';
+
   private allProducts: IProduct[] = [];
   private products = new Subject<IProduct[]>();
   products$ = this.products.asObservable();
@@ -35,7 +38,7 @@ export class ProductService {
 
   getProducts(){
     this.http
-    .get<IProduct[]>(environment.urlApi + 'products')
+    .get<IProduct[]>(this.urlApi + 'products')
     .subscribe((dataFromApi) => {
       this.products.next(dataFromApi)
       this.allProducts = dataFromApi;
@@ -46,7 +49,7 @@ export class ProductService {
 
   getCategory(){
     this.http
-    .get<ICategory[]>(environment.urlApi + 'categories')
+    .get<ICategory[]>(this.urlApi + 'categories')
     .subscribe((dataFromApi) => {
       this.categories.next(dataFromApi)
     });
@@ -90,7 +93,7 @@ export class ProductService {
   }
 
   searchProduct(searchText: string){
-    this.http.get<IProduct[]>(environment.searchApi + searchText)
+    this.http.get<IProduct[]>(this.searchApi + searchText)
     .subscribe((dataFromApi) => {
       this.searched = dataFromApi;
 
