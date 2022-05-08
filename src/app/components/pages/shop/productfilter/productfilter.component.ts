@@ -36,10 +36,14 @@ export class ProductfilterComponent implements OnInit {
         if(item === id){
           this.filter.splice(index,1);
 
-          if(this.filter.length === 0 && this.searchString.length >= 2){
-            this.service.searchProduct(this.searchString)
-          } else if(this.filter.length === 0 && this.searchString.length <= 1){
-            this.service.getProducts();
+          if(this.filter?.length === 0){
+            console.log(this.searchString);
+
+            if(this.searchString?.length >= 2){
+              this.searchProductsInput(this.searchString)
+            } else {
+              this.resetFilters();
+            }
           }
         }
       });
@@ -54,10 +58,21 @@ export class ProductfilterComponent implements OnInit {
 
   searchProductsInput(searchText: string){
     this.searchString = searchText;
-    if(searchText.length >= 2){
+    this.service.searchProduct(searchText)
+
+    /*if(searchText?.length >= 2){
       this.service.searchProduct(searchText)
     } else {
       this.service.filterProducts(this.filter);
+      this.searchString = "";
     }
+
+    if(searchText?.length === 0){
+      if(this.filter?.length === 0){
+        this.resetFilters()
+      } else {
+      this.service.filterProducts(this.filter)
+      }
+    }*/
   }
 }
