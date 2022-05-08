@@ -9,7 +9,7 @@
 				<label for="filterCheck">{{ c.name }}</label>
 				<input type="checkbox" class="filterInput" #filterCheck [value]="c.id" (change)="categoryCheck(filterCheck, c.id)">
 			</div>
+			<button id="resetFilter" type="reset" (click)="resetFilters()" class="resetBtn">Reset Filter</button>
 		</form>
-		<button id="resetFilter" type="reset" class="resetBtn">Reset Filter</button>
 </aside>
 

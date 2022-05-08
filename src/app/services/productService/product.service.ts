@@ -86,23 +86,30 @@ export class ProductService {
       })
     })
     this.productsToRender.next(result)
-
-    console.log("result",result);
-    console.log("search",this.searched);
-    console.log("filtered", this.filtered);
   }
 
   searchProduct(searchText: string){
-    this.http.get<IProduct[]>(this.searchApi + searchText)
-    .subscribe((dataFromApi) => {
-      this.searched = dataFromApi;
+    console.log(this.searched);
 
+    if(searchText.length >= 2) {
+      this.http.get<IProduct[]>(this.searchApi + searchText)
+      .subscribe((dataFromApi) => {
+        this.searched = dataFromApi;
+
+        if(this.filtered.length === 0){
+          this.productsToRender.next(dataFromApi)
+        } else {
+          this.filterSearchMatch()
+        }
+      })
+    } else {
+      this.searched = [];
       if(this.filtered.length === 0){
-        this.productsToRender.next(dataFromApi)
+        this.productsToRender.next(this.allProducts)
       } else {
-        this.filterSearchMatch()
+        this.productsToRender.next(this.filtered)
       }
-    })
+    }
   }
 
   filterProducts(categories: number[]){
@@ -130,4 +137,3 @@ export class ProductService {
     }
   }
 }
-
